@@ -41,13 +41,19 @@ export class ChatService {
    * @param proveedor
    */
   login ( proveedor: string ) {
-    this.auth.signInWithPopup( new firebase.auth.GoogleAuthProvider() );
+    if ( proveedor === 'google' ) {
+      this.auth.signInWithPopup( new firebase.auth.GoogleAuthProvider() );
+    } else {
+      this.auth.signInWithPopup( new firebase.auth.GithubAuthProvider() );
+    }
+
   }
 
   /**
    * @name logout
    */
   logout () {
+    this.usuario = {};
     this.auth.signOut();
   }
 
